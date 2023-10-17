@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+</head>
+<body>
+
+<input type="file" id="inputFile">
+<button onclick="uploadFile()">Upload and Process</button>
+
+<script>
+    function uploadFile() {
+        let fileInput = document.getElementById('inputFile');
+        let formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+
+        fetch('/upload', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.url;
+            })
+            .then(url => {
+                window.location.href = url;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+</script>
+
+</body>
+</html>

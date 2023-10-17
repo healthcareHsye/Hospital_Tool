@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Output Results</title>
+</head>
+<body>
+
+<a id="excelLink" href="#">Download Processed Excel File</a>
+
+<div id="graphsContainer">
+  <!-- Graphs will be appended here -->
+</div>
+
+<script>
+  // Assuming we pass data to this page as a JSON string via a query parameter
+  const data = JSON.parse(decodeURIComponent(new URLSearchParams(window.location.search).get('data')));
+
+  // Set the Excel download link
+  const excelLink = document.getElementById('excelLink');
+  excelLink.href = data.output_file;
+
+  // Display the graph images
+  const graphsContainer = document.getElementById('graphsContainer');
+  data.graph_files.forEach(graphPath => {
+    let img = document.createElement('img');
+    img.src = graphPath;
+    img.alt = "Graph Image";
+    img.width = 400;  // Adjust width as needed
+    graphsContainer.appendChild(img);
+  });
+</script>
+
+</body>
+</html>
