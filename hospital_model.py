@@ -16,15 +16,15 @@ from openpyxl.drawing.image import Image
 
 def process_and_plot(filename):
     graph_paths = []
-    input_file = "/Users/aishwaryakumar/PycharmProjects/HSyE September 23/Input File.xlsx"
+    # input_file = "/Users/aishwaryakumar/PycharmProjects/HSyE September 23/Input File.xlsx"
     # outputFile_name = "/Users/aishwaryakumar/PycharmProjects/HSyE Projects/HSyE_Model_Version2.0/Output.xlsx"
-    output_file_path = "/Users/aishwaryakumar/PycharmProjects/HSyE Projects/HSyE_Model_Version2.0"
+    # output_file_path = "/Users/aishwaryakumar/PycharmProjects/HSyE Projects/HSyE_Model_Version2.0"
 
-    probability_data = pd.read_excel(input_file, sheet_name="Patient and Room Types")
+    probability_data = pd.read_excel(filename, sheet_name="Patient and Room Types")
     del probability_data[probability_data.columns[0]]
     probability_list = probability_data.values.tolist()
 
-    stay_length_data = pd.read_excel(input_file, sheet_name="Lengths of Stay")
+    stay_length_data = pd.read_excel(filename, sheet_name="Lengths of Stay")
     del stay_length_data[stay_length_data.columns[0]]
     stay_length_list = stay_length_data.values.tolist()
 
@@ -35,7 +35,7 @@ def process_and_plot(filename):
     img_path_total_demand = f"static/Total_Bed_Demand_{timestamp}.png"
     img_path_covid_demand = f"static/COVID_Bed_Demand_{timestamp}.png"
 
-    new_patients_data = pd.read_excel(input_file, sheet_name="Admissions History")
+    new_patients_data = pd.read_excel(filename, sheet_name="Admissions History")
     new_patients_list = new_patients_data.values.tolist()
     print("new_patients_list", new_patients_data.values.tolist())
 
@@ -69,7 +69,7 @@ def process_and_plot(filename):
     transfers_departure = [[[0 for _ in range(patient_type)] for _ in range(room_type)] for _ in
                            range(days + 1)]
 
-    census_day0_data = pd.read_excel(input_file, sheet_name="Starting Census")
+    census_day0_data = pd.read_excel(filename, sheet_name="Starting Census")
 
     # Deleting census of day 0
     del census_day0_data[census_day0_data.columns[0]]
@@ -135,12 +135,12 @@ def process_and_plot(filename):
     # ###### PPE kit Code ###### #
     # Extract from Excel
 
-    ppe_consumption_rate = pd.read_excel(input_file, sheet_name="PPE Consumption Rate")
+    ppe_consumption_rate = pd.read_excel(filename, sheet_name="PPE Consumption Rate")
     del ppe_consumption_rate[ppe_consumption_rate.columns[0]]
     inventory_perpatient_perday = ppe_consumption_rate.values.tolist()
     # print("PPE",ppe_consumption_rate_list)
 
-    current_inventory = pd.read_excel(input_file, sheet_name="Current Inventory")
+    current_inventory = pd.read_excel(filename, sheet_name="Current Inventory")
     del current_inventory[current_inventory.columns[0]]
     inventory_given = current_inventory.values.tolist()
     # print("PPE_current_inventory",current_inventory_list[0])
