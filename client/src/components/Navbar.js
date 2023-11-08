@@ -27,6 +27,7 @@ function Navbar() {
     navigate("/c-Chart");
   };
 
+<<<<<<< HEAD
   // const handleOpenSettings = () => {
   //   setSettingsOpen(true);
   // };
@@ -39,6 +40,20 @@ function Navbar() {
   //   setSettings(newSettings);
   //   handleCloseSettings();
   // };
+=======
+  const handleOpenSettings = () => {
+    setSettingsOpen(true);
+  };
+
+  const handleCloseSettings = () => {
+    setSettingsOpen(false);
+  };
+
+  const handleSaveSettings = (newSettings) => {
+    setSettings(newSettings);
+    handleCloseSettings();
+  };
+>>>>>>> d276f0ce (Include client-side folder in main repository)
 
   return (
     <>
@@ -62,6 +77,7 @@ function Navbar() {
               )}
             </li>
           ))}
+<<<<<<< HEAD
           {/* <li className="nav-item">
             <button onClick={handleOpenSettings}>User Settings</button>
           </li> */}
@@ -72,6 +88,18 @@ function Navbar() {
         onClose={handleCloseSettings}
         onSave={handleSaveSettings}  // This function is called when the settings are saved
       /> */}
+=======
+          <li className="nav-item">
+            <button onClick={handleOpenSettings}>User Settings</button>
+          </li>
+        </ul>
+      </nav>
+      <SettingsPopup style={{ background: '#015EA5'}}
+        isOpen={settingsOpen}
+        onClose={handleCloseSettings}
+        onSave={handleSaveSettings}  // This function is called when the settings are saved
+      />
+>>>>>>> d276f0ce (Include client-side folder in main repository)
     </>
   );
 }

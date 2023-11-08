@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+<<<<<<< HEAD
 // import XLSX from 'xlsx'; // Added import for xlsx library
 import * as XLSX from 'xlsx';
 import { jsPDF } from 'jspdf';
@@ -13,10 +14,16 @@ function capitalizeFirstLetter(string) {
 function Output() {
   const [data, setData] = useState(null);
   const [inputMatrices, setInputMatrices] = useState({});
+=======
+
+function Output() {
+  const [data, setData] = useState(null);
+>>>>>>> d276f0ce (Include client-side folder in main repository)
   const [graphType, setGraphType] = useState('Deterministic'); // State to hold dropdown value
 
   useEffect(() => {
     fetchGraphData();
+<<<<<<< HEAD
     fetchMatrixData();
   }, []);
 
@@ -39,6 +46,10 @@ function Output() {
     doc.save('InputData.pdf');
   };
 
+=======
+  }, []);
+
+>>>>>>> d276f0ce (Include client-side folder in main repository)
   const fetchGraphData = () => {
     axios
       .get(`http://127.0.0.1:5002/compute_chart?type=${graphType}`)
@@ -52,6 +63,7 @@ function Output() {
       });
   };
 
+<<<<<<< HEAD
   const fetchMatrixData = () => {
     axios.get(`http://127.0.0.1:5002/compute_chart?type=${graphType}`)
         .then(response => {
@@ -64,6 +76,8 @@ function Output() {
         });
   };
 
+=======
+>>>>>>> d276f0ce (Include client-side folder in main repository)
   const handleGraphTypeChange = (e) => {
     setGraphType(e.target.value);
   };
@@ -72,6 +86,7 @@ function Output() {
     fetchGraphData();
   };
 
+<<<<<<< HEAD
   const handleMatrixInputChange = (matrixName, rowIndex, columnIndex, newValue) => {
     setInputMatrices(prevMatrices => {
       const newMatrices = {...prevMatrices};
@@ -102,14 +117,23 @@ function Output() {
         });
   };
 
+=======
+>>>>>>> d276f0ce (Include client-side folder in main repository)
   // Button style
   const buttonStyle = {
     padding: '10px 20px',
     margin: '5px',
+<<<<<<< HEAD
     minWidth: '100px', 
     textDecoration: 'none',
     color: 'white',
     background: '#3498db',
+=======
+    minWidth: '100px', // Ensure all buttons have at least the same width
+    textDecoration: 'none', // To remove the underline from links
+    color: 'white', // You can choose the color that fits your design
+    background: '#3498db', // Same here for the background color
+>>>>>>> d276f0ce (Include client-side folder in main repository)
     border: 'none',
     borderRadius: '5px',
     textAlign: 'center',
@@ -118,6 +142,7 @@ function Output() {
     cursor: 'pointer'
   };
 
+<<<<<<< HEAD
   // New handler for Bed button click
   const handleBedClick = () => {
     axios
@@ -192,6 +217,8 @@ function Output() {
     XLSX.writeFile(workbook, "InputData.xlsx");
   };
 
+=======
+>>>>>>> d276f0ce (Include client-side folder in main repository)
   return (
     <div style={{ display: 'flex' }}>
       {/* Left Component */}
@@ -202,7 +229,10 @@ function Output() {
         padding: '20px',
         borderRadius: '5px',
         background: 'linear-gradient(to bottom, #2980b9, #6dd5fa)',
+<<<<<<< HEAD
         overflowY: 'auto',
+=======
+>>>>>>> d276f0ce (Include client-side folder in main repository)
       }}>
         {/* Dropdown and Download button */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', marginBottom: '10px' }}>
@@ -215,7 +245,11 @@ function Output() {
             <a
               href={`http://127.0.0.1:5002/${data.output_file}`}
               style={buttonStyle}
+<<<<<<< HEAD
               download
+=======
+              download // This attribute will prompt the file download
+>>>>>>> d276f0ce (Include client-side folder in main repository)
             >
               Download
             </a>
@@ -224,24 +258,35 @@ function Output() {
         
         {/* Bed and Staff buttons */}
         <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '10px' }}>
+<<<<<<< HEAD
           <button onClick={handleBedClick} style={buttonStyle}>Bed</button>
           <button onClick={handleEquipmentClick} style={buttonStyle}>Staff</button>
+=======
+          <button style={buttonStyle}>Bed</button>
+          <button style={buttonStyle}>Staff</button>
+>>>>>>> d276f0ce (Include client-side folder in main repository)
         </div>
 
         {/* Equipment and Show Data buttons */}
         <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '20px' }}>
+<<<<<<< HEAD
           <button onClick={handleEquipmentClick} style={buttonStyle}>Equipment</button>
           <button onClick={""} style={buttonStyle}>Show Output Tables</button>
           <button onClick={handleDownloadExcel} style={buttonStyle}>Download Input Data (Excel)</button>
           <button onClick={handleDownloadPDF} style={buttonStyle}>Download Input Data (PDF)</button>
           {/* <button onClick={handleUploadToSheet}>Upload to Google Sheets</button> */}
 
+=======
+          <button style={buttonStyle}>Equipment</button>
+          <button style={buttonStyle}>Show Data</button>
+>>>>>>> d276f0ce (Include client-side folder in main repository)
         </div>
 
         {/* Generate Graph button */}
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <button onClick={handleGenerateGraph} style={{ ...buttonStyle, width: 'calc(100% - 10px)' }}>Generate Graph</button>
         </div>
+<<<<<<< HEAD
 
         {/* Display Input Data */}
         <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '20px' }}>
@@ -279,6 +324,12 @@ function Output() {
 
       {/* Right Component (Unchanged) */}
       <div style={{ flex: '1', padding: '20px', overflowY: 'auto', }}>
+=======
+      </div>
+
+      {/* Right Component (Unchanged) */}
+      <div style={{ flex: '2', padding: '20px' }}>
+>>>>>>> d276f0ce (Include client-side folder in main repository)
         <h1>Output Results</h1>
         {data ? (
           <div id="graphsContainer">
