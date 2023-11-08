@@ -14,6 +14,7 @@ from hm_inputmatrices import hm_inputmatrices
 from hospital_model import process_and_plot
 
 # app = Flask(__name__)
+
 app = Flask(__name__)
 CORS(app)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
