@@ -72,10 +72,14 @@ def compute_chart():
     try:
         data_path = os.path.join(os.path.dirname(__file__), "uploads", "file.xls")
         output_excel_file, graph_filenames = process_and_plot(data_path)
+        bed_demand_images = [filename for filename in graph_filenames if 'Bed_Demand' in filename]
+        equipment_demand_images = [filename for filename in graph_filenames if 'Consumption' in filename]
 
         data = {
             "output_file": output_excel_file,
-            "graph_files": graph_filenames
+            "graph_files": graph_filenames,
+            "bed": bed_demand_images,
+            "equipment": equipment_demand_images
         }
         return jsonify(data), 200
     except Exception as e:
