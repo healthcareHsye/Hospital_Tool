@@ -1,0 +1,45 @@
+.submenu {
+  width: 11rem;
+  position: absolute;
+  /* left: 200px;
+  top: 245px; */
+  left: -50px;
+  top: 100%;
+  list-style: none;
+  text-align: start;
+}
+
+.submenu li {
+  background: #005fa5;
+  cursor: pointer;
+}
+
+.submenu li a {
+  display: block;
+  width: 80%;
+  padding: 12px 16px; /* giving space around the text */
+  text-decoration: none;
+  color: white; /* or your desired color */
+}
+
+.submenu li a:hover {
+  background: darkblue;
+  cursor: pointer;
+}
+
+.submenu.clicked {
+  display: block;
+}
+
+.submenu-item {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: white !important;
+  padding: 16px;
+}
+
+/* .submenu-item:hover {
+  background: aqua;
+} */
