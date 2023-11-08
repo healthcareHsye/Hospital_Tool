@@ -2,6 +2,9 @@ from _curses import flash
 
 from flask import Flask, render_template, request, redirect, url_for, jsonify, session
 import os
+from flask_cors import CORS
+from flask_cors import cross_origin
+# from calculations import calculate_c_chart
 import json
 from flask_cors import CORS
 from flask_cors import cross_origin
@@ -10,6 +13,7 @@ from werkzeug.utils import secure_filename
 from hm_inputmatrices import hm_inputmatrices
 from hospital_model import process_and_plot
 
+# app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'xlsx', 'xls'}
 
