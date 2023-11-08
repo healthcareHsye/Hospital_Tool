@@ -3,6 +3,9 @@ from math import ceil, floor
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib
+
+from hm_inputmatrices import hm_inputmatrices
+
 matplotlib.use('Agg')
 import random
 import openpyxl
@@ -14,19 +17,21 @@ from PIL import Image
 from openpyxl.drawing.image import Image
 
 
-def process_and_plot(filename):
+def process_and_plot(probability_list, stay_length_list, new_patients_list, census_day0_data, inventory_perpatient_perday, inventory_given):
     graph_paths = []
-    input_file = "/Users/aishwaryakumar/PycharmProjects/HSyE September 23/Input File.xlsx"
+    #input_file = "/Users/aishwaryakumar/PycharmProjects/HSyE September 23/Input File.xlsx"
     # outputFile_name = "/Users/aishwaryakumar/PycharmProjects/HSyE Projects/HSyE_Model_Version2.0/Output.xlsx"
-    output_file_path = "/Users/aishwaryakumar/PycharmProjects/HSyE Projects/HSyE_Model_Version2.0"
+    #output_file_path = "/Users/aishwaryakumar/PycharmProjects/HSyE Projects/HSyE_Model_Version2.0"
+    # probability_list, stay_length_list, new_patients_list, census_day0_data, inventory_perpatient_perday, inventory_given = hm_inputmatrices(filename)
+    #probability_matrix, stay_length_matrix, new_patients_matrix, census_day0_matrix, inventory_matrix = input_matrices
 
-    probability_data = pd.read_excel(input_file, sheet_name="Patient and Room Types")
-    del probability_data[probability_data.columns[0]]
-    probability_list = probability_data.values.tolist()
+    # Convert string inputs to the appropriate data type if necessary
+    # For example, if your matrices need to be of float type, you can do:
+    # probability_matrix = [[float(cell) for cell in row] for row in probability_matrix]
+    # ... similarly convert other matrices as needed
 
-    stay_length_data = pd.read_excel(input_file, sheet_name="Lengths of Stay")
-    del stay_length_data[stay_length_data.columns[0]]
-    stay_length_list = stay_length_data.values.tolist()
+
+
 
     timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
     outputFile_name = f"static/Output_{timestamp}.xlsx"
@@ -35,9 +40,6 @@ def process_and_plot(filename):
     img_path_total_demand = f"static/Total_Bed_Demand_{timestamp}.png"
     img_path_covid_demand = f"static/COVID_Bed_Demand_{timestamp}.png"
 
-    new_patients_data = pd.read_excel(input_file, sheet_name="Admissions History")
-    new_patients_list = new_patients_data.values.tolist()
-    print("new_patients_list", new_patients_data.values.tolist())
 
     # Extract from excel
     # transfers_dict = {0: {0: {1: [1, 6]}, 1: {1: [0.6, 4]}},
@@ -69,11 +71,11 @@ def process_and_plot(filename):
     transfers_departure = [[[0 for _ in range(patient_type)] for _ in range(room_type)] for _ in
                            range(days + 1)]
 
-    census_day0_data = pd.read_excel(input_file, sheet_name="Starting Census")
 
+    # census_day0_data = pd.read_excel(input_file, sheet_name="Starting Census")
     # Deleting census of day 0
-    del census_day0_data[census_day0_data.columns[0]]
-    census_output[0] = census_day0_data.values.tolist()
+    # del census_day0_data[census_day0_data.columns[0]]
+    census_output[0] = census_day0_data
     # census_output[1] = census_day0_data.values.tolist()
 
     print(census_output)
@@ -134,16 +136,6 @@ def process_and_plot(filename):
 
     # ###### PPE kit Code ###### #
     # Extract from Excel
-
-    ppe_consumption_rate = pd.read_excel(input_file, sheet_name="PPE Consumption Rate")
-    del ppe_consumption_rate[ppe_consumption_rate.columns[0]]
-    inventory_perpatient_perday = ppe_consumption_rate.values.tolist()
-    # print("PPE",ppe_consumption_rate_list)
-
-    current_inventory = pd.read_excel(input_file, sheet_name="Current Inventory")
-    del current_inventory[current_inventory.columns[0]]
-    inventory_given = current_inventory.values.tolist()
-    # print("PPE_current_inventory",current_inventory_list[0])
 
     supply_type = len(inventory_perpatient_perday[0])
 

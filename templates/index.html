@@ -6,13 +6,23 @@
     <title>File Upload</title>
 </head>
 <body>
+<h1>Upload Your File</h1>
 
 <input type="file" id="inputFile">
-<button onclick="uploadFile()">Upload and Process</button>
+<button onclick="uploadFile()">Upload</button>
+
+<br>
+<br>
+<a id="inputPageLink" href="/inputs" style="display: none;"><button>Go to Input Editing</button></a>
 
 <script>
     function uploadFile() {
         let fileInput = document.getElementById('inputFile');
+        if (!fileInput.files.length) {
+            alert('Please select a file first!');
+            return;
+        }
+
         let formData = new FormData();
         formData.append('file', fileInput.files[0]);
 
@@ -24,16 +34,21 @@
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                return response.url;
+                return response.text();
             })
-            .then(url => {
-                window.location.href = url;
+            .then(result => {
+                alert('File uploaded successfully!');
+                console.log('Success:', result);
+                document.getElementById('inputPageLink').style.display = 'inline';
+
+
+                // Enable the button
             })
             .catch(error => {
                 console.error('Error:', error);
+                alert('File upload failed!');
             });
     }
 </script>
-
 </body>
 </html>

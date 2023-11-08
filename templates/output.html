@@ -8,6 +8,7 @@
 <body>
 
 <a id="excelLink" href="#">Download Processed Excel File</a>
+<button onclick="navigateToAnotherPage()">Go to Another Page</button>
 
 <div id="graphsContainer">
   <!-- Graphs will be appended here -->
@@ -30,6 +31,11 @@
     img.width = 400;  // Adjust width as needed
     graphsContainer.appendChild(img);
   });
+
+  // Function to navigate to another page
+  function navigateToAnotherPage() {
+    window.location.href = 'path/to/another/page.html'; // Update with the actual path to your other page
+  }
 </script>
 
 </body>

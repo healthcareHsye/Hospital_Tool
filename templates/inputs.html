@@ -2,9 +2,48 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Inputs</title>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 5px;
+      text-align: left;
+    }
+    input[type="number"] {
+      width: 50px;
+    }
+  </style>
 </head>
 <body>
-$END$
+<h1>Edit Input Matrices</h1>
+<form action="/update_inputs" method="post">
+  {% for matrix_name, matrix in input_matrices.items() %}
+  <h3>{{ matrix_name.replace("_", " ").capitalize() }}</h3>
+  <table>
+    {% set row_index = namespace(value=0) %}
+    {% for row in matrix %}
+    <tr>
+      {% set column_index = namespace(value=0) %}
+      {% for cell in row %}
+      <td><input type="number" name="{{ matrix_name }}_{{ row_index.value }}_{{ column_index.value }}" value="{{ cell }}" required></td>
+      {% set column_index.value = column_index.value + 1 %}
+      {% endfor %}
+    </tr>
+    {% set row_index.value = row_index.value + 1 %}
+    {% endfor %}
+  </table>
+  {% endfor %}
+
+  <button type="submit">Update Inputs</button>
+</form>
+
+<br>
+<form action="/process" method="post">
+  <button type="submit">Process Model</button>
+</form>
 </body>
 </html>
