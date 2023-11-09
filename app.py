@@ -84,11 +84,37 @@ def upload():
         return jsonify({"error": str(e)}), 500
 
 
-@app.route("/compute_chart", methods=["GET"])
+@app.route("/compute_chart", methods=["GET","POST"])
 @cross_origin()
 def compute_chart():
     try:
+        global input_matrices
         data_path = os.path.join(os.path.dirname(__file__), "uploads", "file.xls")
+
+        # Handle POST request with new matrix data
+        if request.method == 'POST':
+            # Get JSON data from the POST request
+            form_data = request.get_json()
+
+            # Initialize a temporary dictionary to store the updated matrices
+            updated_matrices = {key: [] for key in input_matrices.keys()}
+
+            # Iterate over the JSON data and update matrices accordingly
+            for key, values in form_data.items():
+                matrix_name, row_index, col_index = key.rsplit('_', 2)
+                row_index, col_index = int(row_index), int(col_index)
+                # Ensure the matrix has enough rows
+                while len(updated_matrices[matrix_name]) <= row_index:
+                    updated_matrices[matrix_name].append([])
+                # Ensure the row has enough columns
+                while len(updated_matrices[matrix_name][row_index]) <= col_index:
+                    updated_matrices[matrix_name][row_index].append(0)
+                # Update the value in the matrix
+                updated_matrices[matrix_name][row_index][col_index] = float(values[0])
+
+            # Update the global input_matrices with the new data
+            input_matrices = updated_matrices
+
 
         # input_matrices = session.get('input_matrices')
 
@@ -128,7 +154,8 @@ def compute_chart():
             "output_file": output_excel_file,
             "graph_files": graph_filenames,
             "bed": bed_demand_images,
-            "equipment": equipment_demand_images
+            "equipment": equipment_demand_images,
+            "inputmatrix": input_matrices
         }
         # return redirect(url_for('output', data=json.dumps(data)))
         return jsonify(data), 200
