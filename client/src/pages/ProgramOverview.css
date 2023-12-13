@@ -1,0 +1,22 @@
+.program-overview {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+    line-height: 1.6;
+  }
+  
+  .program-overview h2 {
+    color: #2a3eb1; /* Adjust the color to match your theme */
+    margin-bottom: 10px;
+  }
+  
+  .program-overview section {
+    margin-bottom: 40px;
+  }
+  
+  .program-overview p {
+    text-align: justify;
+    margin-bottom: 10px;
+  }
+
+  

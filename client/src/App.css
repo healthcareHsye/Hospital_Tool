@@ -1,42 +1,19 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 5px !important;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 10vh;
+.header-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 20px;
 }
 
-.App-link {
-  color: #61dafb;
+.logo {
+  margin-right: 10px;
+  width: 50px; /* Adjust size as needed */
+  height: auto;
+  padding-right: 50px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.header-title {
+  margin: 0;
 }
 
-/* .App button.button-text {
-  color: black !important;
-} */
+/* Rest of your CSS */

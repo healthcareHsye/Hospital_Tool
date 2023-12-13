@@ -1,0 +1,31 @@
+.instruction-page {
+    padding: 20px;
+  }
+  
+  .instruction-page .download-button {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px; /* Spacing above the button */
+  }
+  .instruction-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .instruction-table th,
+  .instruction-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .instruction-table th {
+    background-color: #f2f2f2;
+  }
+  /* Additional CSS for table styling */
+  

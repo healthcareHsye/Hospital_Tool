@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+// import XLSX from 'xlsx'; // Added import for xlsx library
+import * as XLSX from 'xlsx';
+import { jsPDF } from 'jspdf';
+import 'jspdf-autotable';
+
 
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -14,6 +19,25 @@ function Output() {
     fetchGraphData();
     fetchMatrixData();
   }, []);
+
+
+  const handleDownloadPDF = () => {
+    const doc = new jsPDF();
+
+    Object.entries(inputMatrices).forEach(([matrixName, matrix], index) => {
+      if (index > 0) {
+        doc.addPage();
+      }
+      doc.text(matrixName, 10, 10);
+      doc.autoTable({
+        startY: 15,
+        head: [Object.keys(matrix[0]).map((_, columnIndex) => `Column ${columnIndex + 1}`)],
+        body: matrix.map(row => Object.values(row)),
+      });
+    });
+
+    doc.save('InputData.pdf');
+  };
 
   const fetchGraphData = () => {
     axios
@@ -31,7 +55,6 @@ function Output() {
   const fetchMatrixData = () => {
     axios.get(`http://127.0.0.1:5002/compute_chart?type=${graphType}`)
         .then(response => {
-          console.log(response.data); // Add this line to log the data structure
           if (response.data) {
             setInputMatrices(response.data.inputmatrix);
           }
@@ -72,8 +95,6 @@ function Output() {
     event.preventDefault(); // Prevent the default form submit action
     axios.post('http://127.0.0.1:5002/compute_chart?type=${graphType}', inputMatrices)
         .then(response => {
-          // The model ran successfully with the new data
-          // You might want to fetch the new graph data here or handle the response
           fetchGraphData(); // Assuming you want to refetch the graph data after updating inputs
         })
         .catch(error => {
@@ -81,15 +102,14 @@ function Output() {
         });
   };
 
-
   // Button style
   const buttonStyle = {
     padding: '10px 20px',
     margin: '5px',
-    minWidth: '100px', // Ensure all buttons have at least the same width
-    textDecoration: 'none', // To remove the underline from links
-    color: 'white', // You can choose the color that fits your design
-    background: '#3498db', // Same here for the background color
+    minWidth: '100px', 
+    textDecoration: 'none',
+    color: 'white',
+    background: '#3498db',
     border: 'none',
     borderRadius: '5px',
     textAlign: 'center',
@@ -100,36 +120,76 @@ function Output() {
 
   // New handler for Bed button click
   const handleBedClick = () => {
-    // if (data && data.bed) {
     axios
         .get(`http://127.0.0.1:5002/compute_chart?type=${graphType}`)
         .then((response) => {
           if (response.data && response.data.bed) {
-            // Assuming response.data is the graph file path or array of paths
             setData({ ...data, graph_files: response.data.bed });
           }
         })
         .catch((error) => {
           console.error('There was an error fetching the bed graph data!', error);
         });
-    // }
   };
 
   // New handler for Equipment button click
   const handleEquipmentClick = () => {
-    // if (data && data.bed) {
     axios
         .get(`http://127.0.0.1:5002/compute_chart?type=${graphType}`)
         .then((response) => {
           if (response.data && response.data.equipment) {
-            // Assuming response.data is the graph file path or array of paths
             setData({ ...data, graph_files: response.data.equipment });
           }
         })
         .catch((error) => {
           console.error('There was an error fetching the bed graph data!', error);
         });
-    // }
+  };
+
+  const handleUploadToSheet = () => {
+    fetch('http://localhost:5002/upload_to_sheet', {  // Replace with your Flask server URL
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      // Include any necessary data in the body, if required by your Flask route
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  };
+  
+
+  // Function to prepare data for Excel export
+  const prepareDataForExcel = () => {
+    let excelData = [];
+    Object.entries(inputMatrices).forEach(([matrixName, matrix]) => {
+      matrix.forEach((row, rowIndex) => {
+        let rowObject = { Matrix: matrixName, Row: rowIndex + 1 };
+        row.forEach((cell, columnIndex) => {
+          rowObject[`Column ${columnIndex + 1}`] = cell;
+        });
+        excelData.push(rowObject);
+      });
+    });
+    return excelData;
+  };
+
+  // Function to handle the download of Excel file
+  const handleDownloadExcel = () => {
+    const dataForExcel = prepareDataForExcel();
+
+    // Convert the data to a worksheet
+    const worksheet = XLSX.utils.json_to_sheet(dataForExcel);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "InputData");
+
+    // Write and download the Excel file
+    XLSX.writeFile(workbook, "InputData.xlsx");
   };
 
   return (
@@ -155,7 +215,7 @@ function Output() {
             <a
               href={`http://127.0.0.1:5002/${data.output_file}`}
               style={buttonStyle}
-              download // This attribute will prompt the file download
+              download
             >
               Download
             </a>
@@ -171,7 +231,11 @@ function Output() {
         {/* Equipment and Show Data buttons */}
         <div style={{ display: 'flex', justifyContent: 'flex-start', marginBottom: '20px' }}>
           <button onClick={handleEquipmentClick} style={buttonStyle}>Equipment</button>
-          <button style={buttonStyle}>Show Data</button>
+          <button onClick={""} style={buttonStyle}>Show Output Tables</button>
+          <button onClick={handleDownloadExcel} style={buttonStyle}>Download Input Data (Excel)</button>
+          <button onClick={handleDownloadPDF} style={buttonStyle}>Download Input Data (PDF)</button>
+          {/* <button onClick={handleUploadToSheet}>Upload to Google Sheets</button> */}
+
         </div>
 
         {/* Generate Graph button */}
@@ -187,7 +251,7 @@ function Output() {
                 <div key={matrixName}>
                   <h3>{capitalizeFirstLetter(matrixName.replace("_", " "))}</h3>
                   <table>
-                    <tbody> {/* Add tbody here */}
+                    <tbody>
                     {matrix.map((row, rowIndex) => (
                         <tr key={rowIndex}>
                           {row.map((cell, columnIndex) => (
@@ -212,8 +276,6 @@ function Output() {
         </div>
 
       </div>
-
-
 
       {/* Right Component (Unchanged) */}
       <div style={{ flex: '1', padding: '20px', overflowY: 'auto', }}>

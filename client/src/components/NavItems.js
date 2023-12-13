@@ -16,7 +16,7 @@ export const navItems = [
   {
     id: 3,
     title: "Instructions",
-    path: "./trajectories",
+    path: "./instructions",
     cName: "nav-item",
   },
 
@@ -66,12 +66,12 @@ export const newOutbreaksAndBaselineDropdown = [
     cName: "nav-item",
   },
 
-  {
-    id: 2,
-    title: "Moving Averages",
-    path: "./movingAverages",
-    cName: "nav-item",
-  },
+  // {
+  //   id: 2,
+  //   title: "Moving Averages",
+  //   path: "./movingAverages",
+  //   cName: "nav-item",
+  // },
 
   // {
   //   id: 3,
@@ -88,13 +88,13 @@ export const newOutbreaksAndBaselineDropdown = [
   // },
 ];
 
-export const trajectoriesDropdown = [
-  {
-    id: 1,
-    title: "Rolling Window",
-    path: "./rollingWindow",
-    cName: "nav-item",
-  },
+export const instructions = [
+  // {
+  //   id: 1,
+  //   title: "Rolling Window",
+  //   path: "./rollingWindow",
+  //   cName: "nav-item",
+  // },
 ];
 
 export const endOfOutbreaksDropdown = [
@@ -118,7 +118,7 @@ export const settingsDropdown = [
 export const dropdownItems = {
   "About Us": aboutUsDropdown,
   "Covid 19 - Tools": newOutbreaksAndBaselineDropdown,
-  "Instructions": trajectoriesDropdown,
+  "Instructions": instructions,
   "Template": endOfOutbreaksDropdown,
   Settings: settingsDropdown,
 };
