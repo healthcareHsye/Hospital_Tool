@@ -16,11 +16,7 @@ export const navItems = [
   {
     id: 3,
     title: "Instructions",
-<<<<<<< HEAD
-    path: "./instructions",
-=======
     path: "./trajectories",
->>>>>>> d276f0ce (Include client-side folder in main repository)
     cName: "nav-item",
   },
 
@@ -70,21 +66,12 @@ export const newOutbreaksAndBaselineDropdown = [
     cName: "nav-item",
   },
 
-<<<<<<< HEAD
-  // {
-  //   id: 2,
-  //   title: "Moving Averages",
-  //   path: "./movingAverages",
-  //   cName: "nav-item",
-  // },
-=======
   {
     id: 2,
     title: "Moving Averages",
     path: "./movingAverages",
     cName: "nav-item",
   },
->>>>>>> d276f0ce (Include client-side folder in main repository)
 
   // {
   //   id: 3,
@@ -101,15 +88,6 @@ export const newOutbreaksAndBaselineDropdown = [
   // },
 ];
 
-<<<<<<< HEAD
-export const instructions = [
-  // {
-  //   id: 1,
-  //   title: "Rolling Window",
-  //   path: "./rollingWindow",
-  //   cName: "nav-item",
-  // },
-=======
 export const trajectoriesDropdown = [
   {
     id: 1,
@@ -117,7 +95,6 @@ export const trajectoriesDropdown = [
     path: "./rollingWindow",
     cName: "nav-item",
   },
->>>>>>> d276f0ce (Include client-side folder in main repository)
 ];
 
 export const endOfOutbreaksDropdown = [
@@ -141,11 +118,7 @@ export const settingsDropdown = [
 export const dropdownItems = {
   "About Us": aboutUsDropdown,
   "Covid 19 - Tools": newOutbreaksAndBaselineDropdown,
-<<<<<<< HEAD
-  "Instructions": instructions,
-=======
   "Instructions": trajectoriesDropdown,
->>>>>>> d276f0ce (Include client-side folder in main repository)
   "Template": endOfOutbreaksDropdown,
   Settings: settingsDropdown,
 };
