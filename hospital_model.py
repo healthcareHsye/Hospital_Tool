@@ -19,19 +19,6 @@ from openpyxl.drawing.image import Image
 
 def process_and_plot(probability_list, stay_length_list, new_patients_list, census_day0_data, inventory_perpatient_perday, inventory_given):
     graph_paths = []
-    #input_file = "/Users/aishwaryakumar/PycharmProjects/HSyE September 23/Input File.xlsx"
-    # outputFile_name = "/Users/aishwaryakumar/PycharmProjects/HSyE Projects/HSyE_Model_Version2.0/Output.xlsx"
-    #output_file_path = "/Users/aishwaryakumar/PycharmProjects/HSyE Projects/HSyE_Model_Version2.0"
-    # probability_list, stay_length_list, new_patients_list, census_day0_data, inventory_perpatient_perday, inventory_given = hm_inputmatrices(filename)
-    #probability_matrix, stay_length_matrix, new_patients_matrix, census_day0_matrix, inventory_matrix = input_matrices
-
-    # Convert string inputs to the appropriate data type if necessary
-    # For example, if your matrices need to be of float type, you can do:
-    # probability_matrix = [[float(cell) for cell in row] for row in probability_matrix]
-    # ... similarly convert other matrices as needed
-
-
-
 
     timestamp = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
     outputFile_name = f"static/Output_{timestamp}.xlsx"
@@ -359,6 +346,7 @@ def process_and_plot(probability_list, stay_length_list, new_patients_list, cens
     # Code to Write Our Final Output File
     with pd.ExcelWriter(outputFile_name, engine='xlsxwriter') as writer:
         output_dataframe = pd.DataFrame(census_output)
+        print(census_output)
         output_dataframe.to_excel(writer, sheet_name='Output', index=False)
 
         # Insert the image into the worksheet
@@ -376,4 +364,4 @@ def process_and_plot(probability_list, stay_length_list, new_patients_list, cens
         worksheet.insert_image('E2', img_path_covid_demand,
                                {'x_offset': 10, 'y_offset': 10, 'x_scale': 0.7, 'y_scale': 0.7})
 
-    return outputFile_name, graph_paths
+    return outputFile_name, graph_paths, census_output

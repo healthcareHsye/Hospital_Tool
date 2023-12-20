@@ -31,6 +31,7 @@ input_matrices = {
     'inventory_given_ip': []
 }
 
+census_output = list[list[list[int]]]
 
 @app.route('/upload', methods=['POST'])
 def upload():
@@ -99,27 +100,16 @@ def compute_chart():
             # Initialize a temporary dictionary to store the updated matrices
             updated_matrices = {key: [] for key in input_matrices.keys()}
 
-            # Iterate over the JSON data and update matrices accordingly
-            for key, values in form_data.items():
-                matrix_name, row_index, col_index = key.rsplit('_', 2)
-                row_index, col_index = int(row_index), int(col_index)
-                # Ensure the matrix has enough rows
-                while len(updated_matrices[matrix_name]) <= row_index:
-                    updated_matrices[matrix_name].append([])
-                # Ensure the row has enough columns
-                while len(updated_matrices[matrix_name][row_index]) <= col_index:
-                    updated_matrices[matrix_name][row_index].append(0)
-                # Update the value in the matrix
-                updated_matrices[matrix_name][row_index][col_index] = float(values[0])
+            for key, matrix_data in form_data.items():
+                if key in updated_matrices:
+                    # Assuming matrix_data is a list of lists representing the entire matrix
+                    updated_matrices[key] = matrix_data
+                else:
+                    print(f"Unknown matrix key: {key}")
 
             # Update the global input_matrices with the new data
             input_matrices = updated_matrices
-
-
-        # input_matrices = session.get('input_matrices')
-
-        print("Type of input_matrices:", type(input_matrices))
-        print("Content of input_matrices:", input_matrices)
+            print("Input Matrices:", input_matrices)
 
         if input_matrices is None:
             return "Input matrices are not set", 400
@@ -139,7 +129,7 @@ def compute_chart():
         inventory_given_ip = [[int(cell) for cell in row] for row in
                               input_matrices['inventory_given_ip']]
 
-        output_excel_file, graph_filenames = process_and_plot(probability_list_ip,
+        output_excel_file, graph_filenames, census_output = process_and_plot(probability_list_ip,
                                                               stay_length_list_ip,
                                                               new_patients_list_ip,
                                                               census_day0_data_ip,
@@ -155,7 +145,8 @@ def compute_chart():
             "graph_files": graph_filenames,
             "bed": bed_demand_images,
             "equipment": equipment_demand_images,
-            "inputmatrix": input_matrices
+            "inputmatrix": input_matrices,
+            "censusoutput": census_output
         }
         # return redirect(url_for('output', data=json.dumps(data)))
         return jsonify(data), 200

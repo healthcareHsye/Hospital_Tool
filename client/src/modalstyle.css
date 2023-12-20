@@ -1,0 +1,101 @@
+.modal {
+    display: none; /* Hidden by default, will be displayed when triggered */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    justify-content: center;
+    align-items: center;
+    padding-top: 60px; /* Location of the box */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.tabs button {
+    background-color: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 10px 15px;
+    transition: background-color 0.3s;
+}
+
+.tabs button:hover {
+    background-color: #ddd;
+}
+
+.tab-content {
+    padding: 20px;
+}
+
+/* Add to your CSS file */
+.output-section {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+}
+
+.output-header {
+    align-self: flex-start; /* Align the header to the start of the flex container */
+    margin-bottom: 1em; /* Add some space below the header */
+}
+
+.output-tables {
+    width: 100%; /* Adjust this as needed */
+    /* If you need spacing between your tables, you can add margin here */
+}
+table input[type="number"] {
+    width: 70px; /* Adjust width as needed */
+    height: 20px; /* Adjust height as needed */
+    padding: 4px; /* Adjust padding as needed */
+    margin: 0; /* Adjust margin as needed */
+    border: 1px solid #ccc; /* Optional: Adds a border */
+    text-align: center; /* Aligns text to the center */
+}
+
+.census-output-section table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.census-output-section th, .census-output-section td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.census-output-section th {
+    background-color: #f2f2f2;
+}
