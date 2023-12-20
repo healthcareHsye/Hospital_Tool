@@ -188,6 +188,7 @@ def update_inputs():
     # Now updated_matrices should be populated with your data
     print(updated_matrices)
     # Update the global input_matrices with the new data
+    #gitcheck
     for matrix_name, matrix_data in updated_matrices.items():
         input_matrices[matrix_name] = matrix_data
     return redirect(url_for('inputs'))
