@@ -8,6 +8,7 @@ import ImportData from "./pages/ImportData";
 import FileUploader from "./components/FileUploader";
 import Output from "./pages/Output"; // or './components/Output' depending on your file structure
 import CChart from "./pages/CChart";
+import AboutUs from "./pages/AboutUs";
 
 function App() {
     return (
@@ -23,6 +24,7 @@ function App() {
                     <Route path="importData" element={<ImportData />} />
                     <Route path="c-Chart" element={<CChart />} />
                     <Route path="output" element={<Output />} />
+                    <Route path="aboutUs" element={<AboutUs />} />
                 </Routes>
             </BrowserRouter>
             <FileUploader />
