@@ -62,9 +62,9 @@ function Navbar() {
                             )}
                         </li>
                     ))}
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                         <button onClick={handleOpenSettings}>User Settings</button>
-                    </li>
+                    </li> */}
                 </ul>
             </nav>
             <SettingsPopup style={{ background: '#015EA5'}}
