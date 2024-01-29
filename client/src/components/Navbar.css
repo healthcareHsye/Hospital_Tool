@@ -33,3 +33,16 @@
 .nav-item a:hover {
   background: darkblue;
 }
+
+.user-registration-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  z-index: 1000; /* Ensure it's above other elements */
+}
+

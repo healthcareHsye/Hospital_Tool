@@ -159,6 +159,17 @@ function Output() {
     setActiveTab(tabName);
   };
 
+  const fetchDBData = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/data');
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
+
 
   return (
     <div style={{ display: 'flex' }}>
@@ -297,11 +308,11 @@ function Output() {
                       </div>
                   ))}
                   <button onClick={handleMatrixSubmit} style={buttonStyle}>Regenerate Graphs</button>
+                  <button onClick={fetchDBData} style={buttonStyle}>Fetch DB data</button>
                 </form>
               </div>
             </div>
         )}
-
 
       </div>
     </div>

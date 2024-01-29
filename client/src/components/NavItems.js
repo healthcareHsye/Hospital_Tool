@@ -6,12 +6,6 @@ export const navItems = [
     cName: "nav-item",
   },
 
-  // {
-  //   id: 2,
-  //   title: "Covid 19 - Tools",
-  //   path: "./newOutbreakBaseline",
-  //   cName: "nav-item",
-  // },
   {
     id: 2,
     title: "Run",
@@ -217,7 +211,6 @@ export const settingsDropdown = [
 
 export const dropdownItems = {
   "About Us": aboutUsDropdown,
-  // "Covid 19 - Tools": newOutbreaksAndBaselineDropdown,
   "Instructions": trajectoriesDropdown,
   "Run": runDropdown,
   "Other Tools": othertoolsDropdown,
