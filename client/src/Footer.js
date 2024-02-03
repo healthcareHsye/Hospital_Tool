@@ -69,7 +69,7 @@ export default function Footer() {
     </Box>
   );
 }
-
+// Test 
 // const messageExamples = [
 //   {
 //     primary: 'Brunch this week?',
